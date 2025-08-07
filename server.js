@@ -5,7 +5,6 @@ const fs = require('fs');
 const path = require('path');
 
 const app = express();
-const PORT = 3000;
 
 app.use(cors());
 app.use(express.json());
@@ -62,5 +61,10 @@ app.post('/login', (req, res) => {
     res.sendStatus(401);
   }
 });
+
+// Hapus atau komentari app.listen untuk Vercel
+// app.listen(PORT, () => {
+//   console.log(`Server berjalan di http://localhost:${PORT}`);
+// });
 
 module.exports = app;
