@@ -303,7 +303,7 @@
 
   <script>
   async function loadLinks() {
-    const res = await fetch('http://localhost:3000/links');
+    const res = await fetch('https://dashboard-fws.vercel.app/links');
     const data = await res.json();
     const container = document.getElementById('sps-links');
     container.innerHTML = '';
@@ -329,7 +329,7 @@
     formData.append('link', newLink);
     formData.append('excel', fileInput.files[0]);
 
-    const res = await fetch('http://localhost:3000/add-link', {
+    const res = await fetch('https://dashboard-fws.vercel.app/add-link', {
       method: 'POST',
       body: formData
     });
@@ -354,7 +354,7 @@
       return;
     }
 
-    const res = await fetch(`http://localhost:3000/delete-link/${index}`, { method: 'DELETE' });
+    const res = await fetch(`https://dashboard-fws.vercel.app/delete-link/${index}`, { method: 'DELETE' });
     if (res.ok) {
       alert('Link berhasil dihapus.');
       loadLinks();
@@ -365,7 +365,7 @@
   }
 
   async function loadDeleteDropdown() {
-    const res = await fetch('http://localhost:3000/links');
+    const res = await fetch('https://dashboard-fws.vercel.app/links');
     const data = await res.json();
     const select = document.getElementById('linkToDelete');
     select.innerHTML = '';
@@ -383,7 +383,7 @@
   }
 
   function openSPS(title) {
-    fetch('http://localhost:3000/sps_links.json')
+    fetch('https://dashboard-fws.vercel.app/sps_links.json')
       .then(res => res.json())
       .then(data => {
         const url = data[title];
@@ -401,7 +401,7 @@
   async function login() {
     const username = document.getElementById('username').value;
     const password = document.getElementById('password').value;
-    const res = await fetch('http://localhost:3000/login', {
+    const res = await fetch('https://dashboard-fws.vercel.app/login', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ username, password })
