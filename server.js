@@ -50,6 +50,7 @@ app.get('/sps_links.json', (req, res) => {
 
 const users = [
   { username: 'admin', password: 'admin123' },
+  { username: 'raffi', password: 'raffi123' }
 ];
 
 app.post('/login', (req, res) => {
