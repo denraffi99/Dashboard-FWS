@@ -5,6 +5,7 @@ const fs = require('fs');
 const path = require('path');
 
 const app = express();
+const PORT = 3000;
 
 app.use(cors());
 app.use(express.json());
@@ -49,7 +50,6 @@ app.get('/sps_links.json', (req, res) => {
 
 const users = [
   { username: 'admin', password: 'admin123' },
-  { username: 'raffi', password: 'raffi123' }
 ];
 
 app.post('/login', (req, res) => {
@@ -62,9 +62,6 @@ app.post('/login', (req, res) => {
   }
 });
 
-// Hapus atau komentari app.listen untuk Vercel
-// app.listen(PORT, () => {
-//   console.log(`Server berjalan di http://localhost:${PORT}`);
-// });
-
-module.exports = app;
+app.listen(PORT, () => {
+  console.log(`Server berjalan di http://localhost:${PORT}`);
+});
