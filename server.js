@@ -12,9 +12,6 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(express.static(path.join(__dirname, 'public')));
 
-// ----------------------
-// LINK SPS SECTION
-// ----------------------
 let linkData = [];
 const linkFilePath = './links.json';
 
@@ -51,25 +48,11 @@ app.get('/sps_links.json', (req, res) => {
   res.sendFile(path.join(__dirname, 'public', 'sps_links.json'));
 });
 
-// ----------------------
-// LOGIN SECTION
-// ----------------------
-const usersFilePath = './users.json';
-let users = [];
+const users = [
+  { username: 'admin', password: 'admin123' },
+  { username: 'raffi', password: 'raffi123' }
+];
 
-// Load users from JSON
-if (fs.existsSync(usersFilePath)) {
-  users = JSON.parse(fs.readFileSync(usersFilePath));
-} else {
-  // Buat file default kalau belum ada
-  users = [
-    { username: 'admin', password: 'admin123' },
-    { username: 'telkom', password: 'telkom123' },
-  ];
-  fs.writeFileSync(usersFilePath, JSON.stringify(users, null, 2));
-}
-
-// Endpoint login
 app.post('/login', (req, res) => {
   const { username, password } = req.body;
   const user = users.find(u => u.username === username && u.password === password);
@@ -78,19 +61,6 @@ app.post('/login', (req, res) => {
   } else {
     res.sendStatus(401);
   }
-});
-
-// Endpoint tambah user baru
-app.post('/add-user', (req, res) => {
-  const { username, password } = req.body;
-  if (!username || !password) return res.status(400).send('Username dan password wajib diisi');
-
-  const exists = users.some(u => u.username === username);
-  if (exists) return res.status(400).send('Username sudah ada');
-
-  users.push({ username, password });
-  fs.writeFileSync(usersFilePath, JSON.stringify(users, null, 2));
-  res.sendStatus(200);
 });
 
 app.listen(PORT, () => {
